@@ -337,34 +337,32 @@ def opt2():
             continue
 
 def opt3():
-    
+
     # Option 3
     print("Press 1 Scan a Name or Data ex. an Email Address with a Single File")
     print("Press 2 and Scan a Directory or Folder of Files")
-
     print('\n')
-
     choice = input("Enter your Choice 1-2: ")
-
     print('\n')
-    
+
     if choice == '1':
         name_Data = input("Enter the Name or Data: ")
         print('\n')
         file1 = input("Enter the File Name: ")
         print('\n')
         if not os.path.exists(file1):
-            print (colored("File does not exist"))
+            print(colored("File does not exist"))
             print('\n')
             opt3()
+
         
         with open(file1) as f1:
-            words= f1.read().casefold().strip().splitlines()
+            words = f1.read().casefold().strip().splitlines()
             name_Data = name_Data.casefold()
             found_results = False
             print("Data found : ")
             print('\n')
-            for lin_no,line in enumerate(words):
+            for lin_no, line in enumerate(words):
                 if name_Data in line:
                     found_results = True
                     print(colored("Line Number:", color="red"), lin_no)
@@ -375,16 +373,18 @@ def opt3():
                 print('\n')
                 print("Do you want to scan again? ")
                 print('\n')
-                print ("Enter 1 for Yes")
-                print ("Enter 2 for No and to Exit")
+                print("Enter 1 for Yes")
+                print("Enter 2 for No and to Exit")
                 print('\n')
-                anwser = input("Enter your choice: ")
-                if anwser == '1':
+                answer = input("Enter your choice: ")
+                if answer == '1':
                     opt3()
-                elif anwser == '2':
+                elif answer == '2':
                     print(colored("Exiting...", color="red"))
                     matrix(3)
                     exit()
+
+    
         while True:
             print("Save Scan results to a File? ")
             print('\n')
@@ -395,13 +395,14 @@ def opt3():
             print('\n')
             if choice == '1':
                 with open(file1) as f1:
-                    words= f1.read().casefold().strip().splitlines()
+                    words = f1.read().casefold().strip().splitlines()
                     name_Data = name_Data.casefold()
                     save_file = input("Enter the File Name to save the results: ")
+                    print('\n')
                     with open(save_file, "w") as f2:
                         f2.write("Data found in File : " + file1)
                         f2.write('\n')
-                        for lin_no,line in enumerate(words):
+                        for lin_no, line in enumerate(words):
                             if name_Data in line:
                                 f2.write("Line Number:")
                                 f2.write(str(lin_no))
@@ -418,22 +419,33 @@ def opt3():
                 choice = input("Enter your choice: ")
                 print('\n')
                 if choice == '1':
-                    #menu()
-                    exit()
+                    menu()
                 elif choice == '2':
                     opt3()
                 elif choice == '3':
                     print(colored("Exiting...", color="red"))
+                    print('\n')
                     matrix(3)
                     exit()
             elif choice == '2':
                 print(colored("Exiting...", color="red"))
+                print('\n')
                 matrix(3)
                 exit()
             else:
                 print(colored("Invalid Choice", color="red"))
                 print('\n')
                 continue
+
+            thread1 = threading.Thread(args=name_Data, line=words)
+            thread1.start()
+
+            thread2 = threading.Thread(args=name_Data, line=words)
+            thread2.start()
+
+            thread1.join()
+            thread2.join()
+
     elif choice == '2':
         found_results = False
         print('\n')
@@ -444,8 +456,7 @@ def opt3():
         if not os.path.isdir(path):
             print ("The path specified does not exist")
             print('\n')
-            #opt3()
-            exit()
+            opt3()
         current_path = os.getcwd()
         print(current_path)
         print('\n')
@@ -470,10 +481,10 @@ def opt3():
                         print('\n')
                         print(colored("Data found in: ", color="green"), file)
                         print(colored("Line Number: ", color="green"), lin_no)
-                        print(colored("Found: ", color="green", attrs=['bold']), line.strip())
+                        print(colored("Line: ", color="green"), line)
                         print('\n')
         if not found_results:
-            print(colored("No Results Found...", color="red"))
+            print("No Results Found...")
             print('\n')
             print("Do you want to scan another directory? ")
             print('\n')
@@ -486,10 +497,11 @@ def opt3():
                 opt3()
             elif choice == '2':
                 print(colored("Exiting...", color="red"))
+                print('\n')
                 matrix(3)
                 exit()
             else:
-                print(colored("Invalid Choice", color="red"))
+                print("Invalid Choice")
                 print('\n')
                 opt3()
 
@@ -535,16 +547,27 @@ def opt3():
                     opt3()
                 elif choice == '3':
                     print(colored("Exiting...", color="red"))
+                    print('\n')
                     matrix(3)
                     exit()
             elif choice == '2':
                 print(colored("Exiting...", color="red"))
+                print('\n')
                 matrix(3)
                 exit()
             else:
-                print(colored("Invalid Choice", color="red"))
+                print("Invalid Choice")
                 print('\n')
                 continue
+            
+            thread1 = threading.Thread(args=name_Data, line=all_lines)
+            thread1.start()
+
+            thread2 = threading.Thread(args=name_Data, line=all_lines)
+            thread2.start()
+
+            thread1.join()
+            thread2.join()
     else:
         print(colored("Invalid choice Options are 1-2", color="red"))
         print('\n')
