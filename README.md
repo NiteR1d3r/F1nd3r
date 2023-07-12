@@ -37,6 +37,8 @@ Video and screenshot examples coming soon....
 
 2.) Fix threading in option3 still buggy or not sure if its even working completely yet :(
 
-3.) Create GUI app for windows version. 
+3.) Create GUI app for windows version.
+
+4.) Release bash script version.
 
 
