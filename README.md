@@ -12,6 +12,8 @@ Features include:
     or scan an entire folder/directory of files in your hunt.
 # Install Instructions
 
+For use on Linux distro's a Windows version will be released soon!
+
 ```
 git clone https://github.com/NiteR1d3r/F1nd3r.git
 ```
