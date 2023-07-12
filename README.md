@@ -25,6 +25,7 @@ sudo pip install -r requirements.txt
 ```
 Then run the file menu is super easy and interactive....
 ```
+chmod +x f1nd3r1_0.py
 python f1nd3r1_0.py
 ```
 # Example Use
