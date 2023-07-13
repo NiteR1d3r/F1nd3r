@@ -4,6 +4,7 @@ from termcolor import colored
 import threading
 from queue import Queue
 from matrix3 import matrix
+#import time
 
 # Data Hunter   
 # By: NetR1d3r & Ebbaline
@@ -50,6 +51,7 @@ def menu():
 
 def opt1():
     # Option 1
+    fileline_count = 0
     print(colored("Scan a Single File of Names or Data against another Single File", color="blue"))
     print('\n')
 
@@ -95,11 +97,14 @@ def opt1():
         thread = threading.Thread(target=search_lines, args=(key_words, all_lines, start_line, end_line, result_queue))
         thread.start()
         threads.append(thread)
-
+        for line in all_lines:
+            fileline_count += 1
+            print(f"\rScanning {fileline_count} lines ", end='', flush=True)    
+    # Display file line count
+    print('\n')
     # Wait for all threads to finish
     for thread in threads:
         thread.join()
-
     # Collect results from the queue
     results = []
     while not result_queue.empty():
@@ -188,7 +193,6 @@ def opt2():
                 if any(word in line for word in key_words):
                     result_queue.put((file, lin_no, line))
 
-
     print(colored("Scan a Folder/Directory of Files....", color="blue"))
     print('\n')
     file1 = input("Enter the Hunted File Name: ")
@@ -231,10 +235,14 @@ def opt2():
 
         threads = []
         for file in files_in_dir:
+            fileline_count = 0
             thread = threading.Thread(target=search_lines, args=(file, key_words, result_queue))
             thread.start()
             threads.append(thread)
-
+            for line in file:
+                fileline_count += 1
+                print(f"\rScanning {fileline_count} lines ", end='', flush=True)
+            
         # Wait for all threads to finish
         for thread in threads:
             thread.join()
@@ -245,11 +253,12 @@ def opt2():
         
         for file, lin_no, line in results:
             found_results = True
+            print('\n')
             print(colored("File Name: ", color="green") + colored(file, color="blue"))
             print(colored("Line Number:", color="red"), lin_no)
             print(colored("Found: ", color="green", attrs=['bold']), line.strip())
-            print('\n')
-
+            #print('\n')
+            
         if not found_results:
             print(colored("No results found.", color="red"))
             print('\n')
@@ -271,8 +280,9 @@ def opt2():
                 print(colored("Returning to Options...", color="red"))
                 print('\n')
                 opt2()
-
+    
     while True:
+
         print("Save Scan results to a File? ")
         print('\n')
         print("Enter 1 for Yes")
@@ -357,18 +367,23 @@ def opt3():
 
         
         with open(file1) as f1:
+            fileline_count = 0
             words = f1.read().casefold().strip().splitlines()
             name_Data = name_Data.casefold()
             found_results = False
             print("Data found : ")
             print('\n')
             for lin_no, line in enumerate(words):
+                fileline_count += 1
+                print(f"\rScanning {fileline_count} lines ", end='', flush=True)
                 if name_Data in line:
+                    print('\n')
                     found_results = True
                     print(colored("Line Number:", color="red"), lin_no)
                     print(colored("Found: ", color="green", attrs=['bold']), line.strip())
                     print('\n')
             if not found_results:
+                print('\n')
                 print(colored("No Results Found...", color="red"))
                 print('\n')
                 print("Do you want to scan again? ")
@@ -378,6 +393,7 @@ def opt3():
                 print('\n')
                 answer = input("Enter your choice: ")
                 if answer == '1':
+                    print('\n')
                     opt3()
                 elif answer == '2':
                     print(colored("Exiting...", color="red"))
@@ -386,6 +402,7 @@ def opt3():
 
     
         while True:
+            print('\n')
             print("Save Scan results to a File? ")
             print('\n')
             print("Enter 1 for Yes")
@@ -467,15 +484,19 @@ def opt3():
                 print(os.path.join(root, file))
             for dir in dirs:
                 print(os.path.join(root, dir))
+        print('\n')
         files_in_dir = []
         for root, dirs, files in os.walk(path):
             for file in files:
                 files_in_dir.append(os.path.join(root, file))
         for file in files_in_dir:
             with open(file, errors='ignore') as f:
+                fileline_count = 0
                 name_Data = name_Data.casefold()
                 all_lines = f.read().casefold().strip().splitlines()
                 for lin_no, line in enumerate(all_lines):
+                    fileline_count += 1
+                    print(f"\rScanning {fileline_count} lines ", end='', flush=True)
                     if name_Data in line:
                         found_results = True
                         print('\n')
@@ -484,6 +505,7 @@ def opt3():
                         print(colored("Line: ", color="green"), line)
                         print('\n')
         if not found_results:
+            print('\n')
             print("No Results Found...")
             print('\n')
             print("Do you want to scan another directory? ")
@@ -506,6 +528,7 @@ def opt3():
                 opt3()
 
         while True:
+            print('\n')
             print("Save Scan results to a File? ")
             print('\n')
             print("Enter 1 for Yes")
@@ -580,5 +603,3 @@ def main():
 if __name__ == '__main__':
     banner()
     menu()
-
-
