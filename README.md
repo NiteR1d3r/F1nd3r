@@ -45,6 +45,6 @@ Video and screenshot examples coming soon....
 
 3.) Create GUI app for windows version.
 
-4.) Release bash script version.
+4.) Release bash script version. [Done] fixing bugs
 
 
