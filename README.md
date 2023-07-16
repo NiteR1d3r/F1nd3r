@@ -27,6 +27,11 @@ Then run the file menu is super easy and interactive....
 ```
 chmod +x f1nd3r1_0.py
 python3 f1nd3r1_0.py
+
+Bash Version:
+
+chmod +x f1nd3r_beta.sh
+./f1nd3r_beta.sh
 ```
 # Example Use
 
