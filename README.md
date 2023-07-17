@@ -1,6 +1,6 @@
 # F1nd3r BETA
 
-This script takes the cmd line equation out for OSINT and Opposition Researchers. 
+This script takes the cmd line equation out for OSINT and Researchers. Very useful as well in Pen Testing to quickly search database dumps with lists of names or emails. So far initial tests with the python version work on csv files without the imported python module since we don't have an option to save in that format it still processes it like txt files. It will print each line if there is matches in both versions there are a few quirks to work out but pretty useful all around so far. 
 
 Features include:
 
@@ -46,5 +46,7 @@ Video and screenshot examples coming soon....
 3.) Create GUI app for windows version.
 
 4.) Release bash script version. [Done] fixing bugs
+
+5.) Test on .sql files and other file formats so far bash version should work well not enough testing yet..
 
 
