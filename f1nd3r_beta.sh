@@ -92,7 +92,7 @@ opt1()
 			continue
 		fi
 		
-		matched_lines=$(grep -i -a "$line" "$target_file")
+		matched_lines=$(grep -i -a $line "$target_file")
 		if [[ -n "$matched_lines" ]]; then
 			echo " "
 			echo "Match found for: $line" 
